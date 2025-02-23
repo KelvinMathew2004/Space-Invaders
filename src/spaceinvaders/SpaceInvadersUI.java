@@ -31,6 +31,7 @@ public class SpaceInvadersUI extends JPanel implements ActionListener, KeyListen
     private int shooter_width = 50;
     private int shooter_height = 60;
     private int shooter_X_Coordinate = 200;
+    public boolean shooting = false;
 
     // Constructor
     public SpaceInvadersUI() {
