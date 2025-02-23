@@ -4,8 +4,7 @@ import javax.swing.*;
 import java.awt.event.ActionListener;
 
 public class MenuBar {
-
-    protected JMenu menu;
+    public JMenu menu;
 
     public JMenu createMenu(String menuName) {
         menu = new JMenu(menuName);

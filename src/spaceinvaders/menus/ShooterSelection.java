@@ -3,11 +3,16 @@ package spaceinvaders.menus;
 import java.awt.*;
 
 public class ShooterSelection extends ImageSelection {
+    public ShooterSelection() {
+        super();
+        createMenu("Shooter");
+    }
+
     public void setShooterImage() {
-        image = loadImage("shooter", "./resources/ShooterImage.png");
+        shooterImage = loadImage("shooter", "./resources/ShooterImage.png");
     }
 
     public Image getShooterImage() {
-        return image;
+        return shooterImage;
     }
 }

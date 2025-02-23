@@ -9,8 +9,9 @@ import javax.swing.*;
 
 import spaceinvaders.GameExceptions;
 
-public class ImageSelection {
-    protected Image image;
+public class ImageSelection extends MenuBar{
+    protected static Image shooterImage;
+    protected static Image invaderImage;
 
     protected static Image loadImage(String imageType, String defaultResourcePath) {
         String imageUrl = JOptionPane.showInputDialog(null,
