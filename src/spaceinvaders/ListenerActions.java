@@ -6,7 +6,10 @@ import java.util.Iterator;
 
 public class ListenerActions {
 
+    private int fireCooldown = 0;
+
     public void updatePositions(SpaceInvadersUI game) {
+
         int shooter_X_Coordinate = game.getShooter_X_Coordinate();
         int shooter_Width = game.getShooterWidth();
         // Move shooter left or right
@@ -15,6 +18,21 @@ public class ListenerActions {
         }
         if (game.moveRight && shooter_X_Coordinate < game.getWidth() - shooter_Width) {
             game.setShooter_X_Coordinate(shooter_X_Coordinate + 5);
+        }
+
+        if (fireCooldown > 0) {
+            fireCooldown--;
+        }
+
+        if (game.shooting) {
+            if (fireCooldown <= 0) {
+                int shooter_width = game.getShooterWidth();
+                int shooter_height = game.getShooterHeight();
+                game.bullets.add(
+                        game.new Bullet(shooter_X_Coordinate + shooter_width / 2, game.getHeight() - shooter_height));
+                fireCooldown = 10;
+                fireCooldown--;
+            }
         }
 
         // Add new falling invaderboxs randomly
@@ -70,11 +88,7 @@ public class ListenerActions {
             game.moveRight = true;
         }
         if (key == KeyEvent.VK_SPACE) {
-            int shooter_X_Coordinate = game.getShooter_X_Coordinate();
-            int shooter_width = game.getShooterWidth();
-            int shooter_height = game.getShooterHeight();
-            game.bullets.add(
-                    game.new Bullet(shooter_X_Coordinate + shooter_width / 2, game.getHeight() - shooter_height));
+            game.shooting = true;
         }
     }
 
@@ -85,6 +99,9 @@ public class ListenerActions {
         }
         if (key == KeyEvent.VK_RIGHT) {
             game.moveRight = false;
+        }
+        if (key == KeyEvent.VK_SPACE) {
+            game.shooting = false;
         }
     }
 }
