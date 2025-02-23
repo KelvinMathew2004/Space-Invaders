@@ -8,8 +8,12 @@ public class ShooterSelection extends ImageSelection {
         createMenu("Shooter");
     }
 
-    public void setShooterImage() {
-        shooterImage = loadImage("shooter", "./resources/ShooterImage.png");
+    public void setCustomShooterImage() {
+        shooterImage = loadCustomImage("shooter", "./resources/ShooterImage.png");
+    }
+
+    public void setPresetShooterImage(String resourcePath) {
+        shooterImage = loadPresetImage("shooter", resourcePath);
     }
 
     public Image getShooterImage() {

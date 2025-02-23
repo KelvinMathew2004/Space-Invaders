@@ -2,8 +2,11 @@ package spaceinvaders;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Random;
+
+import javax.imageio.ImageIO;
 import javax.swing.*;
 
 import spaceinvaders.menus.InvaderSelection;
@@ -20,6 +23,7 @@ public class SpaceInvadersUI extends JPanel implements ActionListener, KeyListen
     public final InvaderSelection invaderSelection;
     public final ShooterSelection shooterSelection;
     private final PaintingActions paintingActions;
+    private Image backgroundImage;
     private int shooter_width = 50;
     private int shooter_height = 60;
     private int shooter_X_Coordinate = 200;
@@ -39,12 +43,21 @@ public class SpaceInvadersUI extends JPanel implements ActionListener, KeyListen
         paintingActions = new PaintingActions();
 
         // Set images
-        shooterSelection.setShooterImage();
-        invaderSelection.setInvaderImage();
+        shooterSelection.setPresetShooterImage("./resources/ShooterImage4.png");
+        invaderSelection.setPresetInvaderImage("./resources/InvaderImage4.png");
+        loadBackgroundImage("./menus/resources/Background.png");
 
         setFocusable(true);
         addKeyListener(this);
         timer.start();
+    }
+
+    private void loadBackgroundImage(String imagePath) {
+        try {
+            backgroundImage = ImageIO.read(SpaceInvadersUI.class.getResource(imagePath));
+        } catch (IOException e) {
+            System.out.println("Error loading background image: " + e.getMessage());
+        }
     }
 
     @Override
@@ -76,7 +89,12 @@ public class SpaceInvadersUI extends JPanel implements ActionListener, KeyListen
     // Let's move these methods into a separate PaintUI class
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        setBackground(Color.BLACK);
+
+        if (backgroundImage != null) {
+            g.drawImage(backgroundImage, 0, 0, getWidth(), getHeight(), this);
+        } else {
+            setBackground(Color.BLACK);
+        }
 
         // Draw shooter (rectangle)
         paintingActions.drawShooter(g, this);

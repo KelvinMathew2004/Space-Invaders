@@ -8,8 +8,12 @@ public class InvaderSelection extends ImageSelection {
         createMenu("Invader");
     }
 
-    public void setInvaderImage() {
-        invaderImage = loadImage("invader", "./resources/InvaderImage.png");
+    public void setCustomInvaderImage() {
+        invaderImage = loadCustomImage("invader", "./resources/InvaderImage.png");
+    }
+
+    public void setPresetInvaderImage(String defaultResourcePath) {
+        invaderImage = loadPresetImage("invader", defaultResourcePath);
     }
 
     public Image getInvaderImage() {

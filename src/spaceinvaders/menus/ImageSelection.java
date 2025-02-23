@@ -13,7 +13,7 @@ public class ImageSelection extends MenuBar{
     protected static Image shooterImage;
     protected static Image invaderImage;
 
-    protected static Image loadImage(String imageType, String defaultResourcePath) {
+    protected static Image loadCustomImage(String imageType, String defaultResourcePath) {
         String imageUrl = JOptionPane.showInputDialog(null,
                 "Enter URL for " + imageType + " image (or leave blank for default):");
 
@@ -33,6 +33,16 @@ public class ImageSelection extends MenuBar{
         // If no URL is provided or URL fails, load the default resource
         try {
             return ImageIO.read(ImageSelection.class.getResource(defaultResourcePath));
+        } catch (IOException e) {
+            GameExceptions.showErrorDialog("Failed to load default " + imageType + " image: " + e.getMessage());
+        }
+
+        return null;
+    }
+
+    protected static Image loadPresetImage(String imageType, String resourcePath) {
+        try {
+            return ImageIO.read(ImageSelection.class.getResource(resourcePath));
         } catch (IOException e) {
             GameExceptions.showErrorDialog("Failed to load default " + imageType + " image: " + e.getMessage());
         }
