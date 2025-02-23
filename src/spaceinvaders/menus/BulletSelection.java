@@ -27,7 +27,7 @@ public class BulletSelection extends ImageSelection{
     public static void drawBullets(Graphics g, java.util.List<SpaceInvadersUI.Bullet> bullets) {        
         if (bulletImage != null) {
             for (SpaceInvadersUI.Bullet bullet : bullets) {
-                g.drawImage(bulletImage, bullet.getX(), bullet.getY(), 10, 20, null);
+                g.drawImage(bulletImage, bullet.getX()-5, bullet.getY()-5, 10, 20, null);
             }
         } else {
             g.setColor(Color.YELLOW);

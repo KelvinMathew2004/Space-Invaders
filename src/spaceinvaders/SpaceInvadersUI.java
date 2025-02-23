@@ -161,7 +161,7 @@ public class SpaceInvadersUI extends JPanel implements ActionListener, KeyListen
 
         public Bullet(int x, int y) {
             this.x = x;
-            this.y = y - 25;
+            this.y = y - 35;
         }
     }
 }

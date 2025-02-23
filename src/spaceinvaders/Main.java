@@ -37,8 +37,8 @@ public class Main {
         invaderMenu.addButton("Final Boss", e -> invaderMenu.setPresetInvaderImage("./resources/InvaderImage7.png"));
 
         bulletMenu.addButton("Custom", e -> bulletMenu.loadCustomBulletImage());
-        bulletMenu.addButton("Nuke", e -> bulletMenu.setPresetBulletImage("./resources/Bullet1.png"));
-        bulletMenu.addButton("Fireball", e -> bulletMenu.setPresetBulletImage("./resources/Bullet2.png"));
+        bulletMenu.addButton("Fireball", e -> bulletMenu.setPresetBulletImage("./resources/Bullet.png"));
+        bulletMenu.addButton("Nuke", e -> bulletMenu.setPresetBulletImage("./resources/Bullet2.png"));
         bulletMenu.addButton("Laser", e -> bulletMenu.setPresetBulletImage("./resources/Bullet3.png"));
 
         musicMenu.addButton("Custom", e -> musicMenu.loadCustomMusic("/Users/kelvinmathew/Documents/CS3354/project-2/src/spaceinvaders/menus/resources/Music.wav"));
