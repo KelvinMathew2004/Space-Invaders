@@ -8,49 +8,27 @@ import javax.imageio.ImageIO;
 import javax.swing.*;
 
 import spaceinvaders.GameExceptions;
+import spaceinvaders.menus.Exceptions.InvalidImage;
 
 public class ImageSelection extends MenuBar{
     protected static Image shooterImage;
     protected static Image invaderImage;
 
     protected static Image loadCustomImage(String imageType, String defaultResourcePath) {
-        String imageUrl = JOptionPane.showInputDialog(null,
-                "Enter URL for " + imageType + " image (or leave blank for default):");
-
+        String imageUrl = JOptionPane.showInputDialog(null, "Enter URL for " + imageType + " image (or leave blank for default):");
         if(defaultResourcePath == "./resources/Bullet.png"){
             return null;
         }
-
-        // Need to handle case where url is not an image, ie a png or jpeg.
         if (imageUrl != null && !imageUrl.isEmpty()) {
-            try {
-                return ImageIO.read(new URL(imageUrl));
-            } catch (MalformedURLException e) {
-                GameExceptions.showErrorDialog(
-                        "Invalid URL for " + imageType + " image: " + e.getMessage() + "\nLoading default image");
-            } catch (IOException e) {
-                GameExceptions.showErrorDialog(
-                        "Failed to load " + imageType + " image: " + e.getMessage() + "\nLoading default image");
+            Image img = InvalidImage.checkUrlForImage(imageUrl, imageType);
+            if (img != null) {
+                return img;
             }
         }
-
-        // If no URL is provided or URL fails, load the default resource
-        try {
-            return ImageIO.read(ImageSelection.class.getResource(defaultResourcePath));
-        } catch (IOException e) {
-            GameExceptions.showErrorDialog("Failed to load default " + imageType + " image: " + e.getMessage());
-        }
-
-        return null;
+        return InvalidImage.checkResourceForImage(defaultResourcePath, imageType);
     }
 
     protected static Image loadPresetImage(String imageType, String resourcePath) {
-        try {
-            return ImageIO.read(ImageSelection.class.getResource(resourcePath));
-        } catch (IOException e) {
-            GameExceptions.showErrorDialog("Failed to load default " + imageType + " image: " + e.getMessage());
-        }
-
-        return null;
+        return InvalidImage.checkResourceForImage(resourcePath, imageType);
     }
 }

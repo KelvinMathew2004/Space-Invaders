@@ -9,7 +9,7 @@ public class InvaderSelection extends ImageSelection {
     }
 
     public void setCustomInvaderImage() {
-        invaderImage = loadCustomImage("invader", "./resources/InvaderImage.png");
+        invaderImage = loadCustomImage("invader", "/resources/InvaderImage.png");
     }
 
     public void setPresetInvaderImage(String resourcePath) {
