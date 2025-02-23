@@ -9,7 +9,7 @@ public class PaintingActions {
     }
 
     public void drawShooter(Graphics g, SpaceInvadersUI game) {
-        Image shooter_image = game.imageSelection.getShooterImage();
+        Image shooter_image = game.shooterSelection.getShooterImage();
         int shooter_height = game.getShooterHeight();
         int shooter_width = game.getShooterWidth();
         int shooter_X_Coordinate = game.getShooter_X_Coordinate();

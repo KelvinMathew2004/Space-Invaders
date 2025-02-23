@@ -6,6 +6,9 @@ import java.util.ArrayList;
 import java.util.Random;
 import javax.swing.*;
 
+import spaceinvaders.menus.InvaderSelection;
+import spaceinvaders.menus.ShooterSelection;
+
 public class SpaceInvadersUI extends JPanel implements ActionListener, KeyListener {
 
     private final Timer timer;
@@ -14,7 +17,8 @@ public class SpaceInvadersUI extends JPanel implements ActionListener, KeyListen
     public Random random;
     public boolean moveLeft, moveRight;
     private final ListenerActions listenerActions;
-    public final ImageSelection imageSelection;
+    public final InvaderSelection invaderSelection;
+    public final ShooterSelection shooterSelection;
     private final PaintingActions paintingActions;
     private int shooter_width = 50;
     private int shooter_height = 60;
@@ -30,11 +34,13 @@ public class SpaceInvadersUI extends JPanel implements ActionListener, KeyListen
         moveLeft = false;
         moveRight = false;
         listenerActions = new ListenerActions();
-        imageSelection = new ImageSelection();
+        invaderSelection = new InvaderSelection();
+        shooterSelection = new ShooterSelection();
         paintingActions = new PaintingActions();
 
         // Set images
-        imageSelection.setGameImages();
+        shooterSelection.setShooterImage();
+        invaderSelection.setInvaderImage();
 
         setFocusable(true);
         addKeyListener(this);
@@ -76,7 +82,7 @@ public class SpaceInvadersUI extends JPanel implements ActionListener, KeyListen
         paintingActions.drawShooter(g, this);
 
         // Draw falling invaderboxes (as images)
-        paintingActions.drawInvaders(g, invaderboxes, imageSelection.getInvaderImage(), this);
+        paintingActions.drawInvaders(g, invaderboxes, invaderSelection.getInvaderImage(), this);
 
         // Draw bullets (bullets)
         paintingActions.drawBullets(g, bullets);

@@ -1,4 +1,4 @@
-package spaceinvaders;
+package spaceinvaders.menus;
 
 import java.awt.*;
 import java.io.IOException;
@@ -7,24 +7,12 @@ import java.net.URL;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 
+import spaceinvaders.GameExceptions;
+
 public class ImageSelection {
-    private Image shooterImage;
-    private Image invaderImage;
+    protected Image image;
 
-    public Image getShooterImage() {
-        return shooterImage;
-    }
-
-    public Image getInvaderImage() {
-        return invaderImage;
-    }
-
-    public void setGameImages() {
-        shooterImage = loadImage("invader", "./resources/ShooterImage.png");
-        invaderImage = loadImage("shooter", "./resources/InvaderImage.png");
-    }
-
-    private static Image loadImage(String imageType, String defaultResourcePath) {
+    protected static Image loadImage(String imageType, String defaultResourcePath) {
         String imageUrl = JOptionPane.showInputDialog(null,
                 "Enter URL for " + imageType + " image (or leave blank for default):");
 
