@@ -11,6 +11,7 @@ import javax.swing.*;
 
 import spaceinvaders.menus.InvaderSelection;
 import spaceinvaders.menus.ShooterSelection;
+import spaceinvaders.menus.MusicSelection;
 
 public class SpaceInvadersUI extends JPanel implements ActionListener, KeyListener {
 
@@ -22,6 +23,7 @@ public class SpaceInvadersUI extends JPanel implements ActionListener, KeyListen
     private final ListenerActions listenerActions;
     public final InvaderSelection invaderSelection;
     public final ShooterSelection shooterSelection;
+    public final MusicSelection musicSelection;
     private final PaintingActions paintingActions;
     private Image backgroundImage;
     private int shooter_width = 50;
@@ -40,11 +42,14 @@ public class SpaceInvadersUI extends JPanel implements ActionListener, KeyListen
         listenerActions = new ListenerActions();
         invaderSelection = new InvaderSelection();
         shooterSelection = new ShooterSelection();
+        musicSelection = new MusicSelection();
         paintingActions = new PaintingActions();
 
-        // Set images
+        // Set images and music
         shooterSelection.setPresetShooterImage("./resources/ShooterImage4.png");
         invaderSelection.setPresetInvaderImage("./resources/InvaderImage4.png");
+        musicSelection.loadPresetMusic("/Users/kelvinmathew/Documents/CS3354/project-2/src/spaceinvaders/menus/resources/Music.wav");
+
         loadBackgroundImage("./menus/resources/Background.png");
 
         setFocusable(true);
@@ -143,7 +148,7 @@ public class SpaceInvadersUI extends JPanel implements ActionListener, KeyListen
 
         public Bullet(int x, int y) {
             this.x = x;
-            this.y = y;
+            this.y = y - 25;
         }
     }
 }

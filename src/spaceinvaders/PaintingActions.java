@@ -13,7 +13,7 @@ public class PaintingActions {
         int shooter_height = game.getShooterHeight();
         int shooter_width = game.getShooterWidth();
         int shooter_X_Coordinate = game.getShooter_X_Coordinate();
-        int shooter_Y_Coordinate = game.getHeight() - shooter_height;
+        int shooter_Y_Coordinate = game.getHeight() - shooter_height - 25;
 
         g.drawImage(shooter_image, shooter_X_Coordinate, shooter_Y_Coordinate, shooter_width, shooter_height, game);
 
