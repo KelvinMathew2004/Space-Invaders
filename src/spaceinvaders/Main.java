@@ -4,6 +4,7 @@ import javax.swing.JFrame;
 import javax.swing.JMenuBar;
 
 import spaceinvaders.menus.ShooterSelection;
+import spaceinvaders.menus.BulletSelection;
 import spaceinvaders.menus.InvaderSelection;
 import spaceinvaders.menus.MusicSelection;
 
@@ -16,6 +17,7 @@ public class Main {
         ShooterSelection shooterMenu = new ShooterSelection();
         InvaderSelection invaderMenu = new InvaderSelection();
         MusicSelection musicMenu = new MusicSelection();
+        BulletSelection bulletMenu = new BulletSelection();
 
         JMenuBar menuBar = new JMenuBar();
 
@@ -34,6 +36,11 @@ public class Main {
         invaderMenu.addButton("Green", e -> invaderMenu.setPresetInvaderImage("./resources/InvaderImage6.png"));
         invaderMenu.addButton("Final Boss", e -> invaderMenu.setPresetInvaderImage("./resources/InvaderImage7.png"));
 
+        bulletMenu.addButton("Custom", e -> bulletMenu.loadCustomBulletImage());
+        bulletMenu.addButton("Nuke", e -> bulletMenu.setPresetBulletImage("./resources/Bullet1.png"));
+        bulletMenu.addButton("Fireball", e -> bulletMenu.setPresetBulletImage("./resources/Bullet2.png"));
+        bulletMenu.addButton("Laser", e -> bulletMenu.setPresetBulletImage("./resources/Bullet3.png"));
+
         musicMenu.addButton("Custom", e -> musicMenu.loadCustomMusic("/Users/kelvinmathew/Documents/CS3354/project-2/src/spaceinvaders/menus/resources/Music.wav"));
         musicMenu.addButton("Fun", e -> musicMenu.loadPresetMusic("/Users/kelvinmathew/Documents/CS3354/project-2/src/spaceinvaders/menus/resources/Music2.wav"));
         musicMenu.addButton("Retro Arcade", e -> musicMenu.loadPresetMusic("/Users/kelvinmathew/Documents/CS3354/project-2/src/spaceinvaders/menus/resources/Music3.wav"));
@@ -42,6 +49,7 @@ public class Main {
         
         menuBar.add(shooterMenu.menu);
         menuBar.add(invaderMenu.menu);
+        menuBar.add(bulletMenu.menu);
         menuBar.add(musicMenu.menu);
 
         frame.setJMenuBar(menuBar);

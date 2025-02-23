@@ -12,8 +12,8 @@ public class InvaderSelection extends ImageSelection {
         invaderImage = loadCustomImage("invader", "./resources/InvaderImage.png");
     }
 
-    public void setPresetInvaderImage(String defaultResourcePath) {
-        invaderImage = loadPresetImage("invader", defaultResourcePath);
+    public void setPresetInvaderImage(String resourcePath) {
+        invaderImage = loadPresetImage("invader", resourcePath);
     }
 
     public Image getInvaderImage() {

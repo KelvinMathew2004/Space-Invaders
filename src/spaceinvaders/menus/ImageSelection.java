@@ -17,6 +17,10 @@ public class ImageSelection extends MenuBar{
         String imageUrl = JOptionPane.showInputDialog(null,
                 "Enter URL for " + imageType + " image (or leave blank for default):");
 
+                if(defaultResourcePath == "./resources/Bullet.png"){
+                    return null;
+                }
+
         // Need to handle case where url is not an image, ie a png or jpeg.
         if (imageUrl != null && !imageUrl.isEmpty()) {
             try {

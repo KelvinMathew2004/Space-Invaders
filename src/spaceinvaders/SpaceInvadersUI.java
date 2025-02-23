@@ -9,6 +9,7 @@ import java.util.Random;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 
+import spaceinvaders.menus.BulletSelection;
 import spaceinvaders.menus.InvaderSelection;
 import spaceinvaders.menus.ShooterSelection;
 import spaceinvaders.menus.MusicSelection;
@@ -24,6 +25,7 @@ public class SpaceInvadersUI extends JPanel implements ActionListener, KeyListen
     public final InvaderSelection invaderSelection;
     public final ShooterSelection shooterSelection;
     public final MusicSelection musicSelection;
+    public final BulletSelection bulletSelection;
     private final PaintingActions paintingActions;
     private Image backgroundImage;
     private int shooter_width = 50;
@@ -43,6 +45,7 @@ public class SpaceInvadersUI extends JPanel implements ActionListener, KeyListen
         invaderSelection = new InvaderSelection();
         shooterSelection = new ShooterSelection();
         musicSelection = new MusicSelection();
+        bulletSelection = new BulletSelection();
         paintingActions = new PaintingActions();
 
         // Set images and music
@@ -51,6 +54,8 @@ public class SpaceInvadersUI extends JPanel implements ActionListener, KeyListen
         musicSelection.loadPresetMusic("/Users/kelvinmathew/Documents/CS3354/project-2/src/spaceinvaders/menus/resources/Music.wav");
 
         loadBackgroundImage("./menus/resources/Background.png");
+
+        bulletSelection.setPresetBulletImage("./resources/Bullet.png");
 
         setFocusable(true);
         addKeyListener(this);
@@ -145,6 +150,14 @@ public class SpaceInvadersUI extends JPanel implements ActionListener, KeyListen
     // Look for Java bullet class
     public class Bullet {
         int x, y;
+
+        public int getX() {
+            return x;
+        }
+    
+        public int getY() {
+            return y;
+        }
 
         public Bullet(int x, int y) {
             this.x = x;

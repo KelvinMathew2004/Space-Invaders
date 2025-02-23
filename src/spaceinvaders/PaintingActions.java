@@ -2,6 +2,8 @@ package spaceinvaders;
 
 import java.awt.*;
 
+import spaceinvaders.menus.BulletSelection;
+
 public class PaintingActions {
 
     public PaintingActions() {
@@ -27,12 +29,13 @@ public class PaintingActions {
     }
 
     public void drawBullets(Graphics g, java.util.List<SpaceInvadersUI.Bullet> bullets) {
-        g.setColor(Color.YELLOW);
-        for (SpaceInvadersUI.Bullet bullet : bullets) {
-            // Make the bullet into a triangle. Remember where the origin is on the game
-            int[] xPoints = { bullet.x, bullet.x - 5, bullet.x + 5 };
-            int[] yPoints = { bullet.y, bullet.y + 10, bullet.y + 10 };
-            g.fillPolygon(xPoints, yPoints, 3);
-        }
+        BulletSelection.drawBullets(g, bullets);
+        // g.setColor(Color.YELLOW);
+        // for (SpaceInvadersUI.Bullet bullet : bullets) {
+        //     Make the bullet into a triangle. Remember where the origin is on the game
+        //     int[] xPoints = { bullet.x, bullet.x - 5, bullet.x + 5 };
+        //     int[] yPoints = { bullet.y, bullet.y + 10, bullet.y + 10 };
+        //     g.fillPolygon(xPoints, yPoints, 3);
+        // }
     }
 }
