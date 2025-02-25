@@ -52,7 +52,7 @@ public class SpaceInvadersUI extends JPanel implements ActionListener, KeyListen
         // Set images and music
         shooterSelection.setPresetShooterImage("./resources/ShooterImage4.png");
         invaderSelection.setPresetInvaderImage("./resources/InvaderImage4.png");
-        musicSelection.loadPresetMusic("/Users/kelvinmathew/Documents/CS3354/project-2/src/spaceinvaders/menus/resources/Music.wav");
+        musicSelection.loadPresetMusic("./resources/Music.wav");
 
         loadBackgroundImage("./menus/resources/Background.png");
 

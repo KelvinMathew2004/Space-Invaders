@@ -1,11 +1,6 @@
 package spaceinvaders.menus;
 
 import java.awt.*;
-import java.io.IOException;
-
-import javax.imageio.ImageIO;
-
-import spaceinvaders.GameExceptions;
 import spaceinvaders.SpaceInvadersUI;
 
 public class BulletSelection extends ImageSelection{

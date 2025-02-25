@@ -27,10 +27,10 @@ public class ImageSelection extends MenuBar{
                 return ImageIO.read(new URL(imageUrl));
             } catch (MalformedURLException e) {
                 GameExceptions.showErrorDialog(
-                        "Invalid URL for " + imageType + " image: " + e.getMessage() + "\nLoading default image");
+                        "Invalid URL for " + imageType + " image: " + "\nLoading default image");
             } catch (IOException e) {
                 GameExceptions.showErrorDialog(
-                        "Failed to load " + imageType + " image: " + e.getMessage() + "\nLoading default image");
+                        "Failed to load " + imageType + " image: " + "\nLoading default image");
             }
         }
 
@@ -38,7 +38,7 @@ public class ImageSelection extends MenuBar{
         try {
             return ImageIO.read(ImageSelection.class.getResource(defaultResourcePath));
         } catch (IOException e) {
-            GameExceptions.showErrorDialog("Failed to load default " + imageType + " image: " + e.getMessage());
+            GameExceptions.showErrorDialog("Failed to load default " + imageType + " image: ");
         }
 
         return null;
@@ -48,7 +48,7 @@ public class ImageSelection extends MenuBar{
         try {
             return ImageIO.read(ImageSelection.class.getResource(resourcePath));
         } catch (IOException e) {
-            GameExceptions.showErrorDialog("Failed to load default " + imageType + " image: " + e.getMessage());
+            GameExceptions.showErrorDialog("Failed to load default " + imageType + " image: ");
         }
 
         return null;

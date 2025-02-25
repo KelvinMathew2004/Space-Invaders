@@ -1,8 +1,8 @@
 package spaceinvaders.menus;
 
 import javax.sound.sampled.*;
+import java.io.InputStream;
 import javax.swing.*;
-import java.io.File;
 import java.net.URL;
 
 import spaceinvaders.GameExceptions;
@@ -30,16 +30,16 @@ public class MusicSelection extends MenuBar {
         loadPresetMusic(defaultMusicPath);
     }
 
-    public void loadPresetMusic(String musicPath) {
+    public void loadPresetMusic(String resourcePath) {
         stopMusic();
         try {
-            File file = new File(musicPath);
-            if (!file.exists()) {
-                GameExceptions.showErrorDialog("Music file not found: " + musicPath);
+            InputStream audioSrc = getClass().getResourceAsStream(resourcePath);
+            if (audioSrc == null) {
+                GameExceptions.showErrorDialog("Music file not found: " + resourcePath);
                 return;
             }
 
-            AudioInputStream audioStream = AudioSystem.getAudioInputStream(file);
+            AudioInputStream audioStream = AudioSystem.getAudioInputStream(audioSrc);
             clip = AudioSystem.getClip();
             clip.open(audioStream);
             clip.loop(Clip.LOOP_CONTINUOUSLY);

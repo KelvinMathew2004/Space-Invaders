@@ -41,10 +41,10 @@ public class Main {
         bulletMenu.addButton("Nuke", e -> bulletMenu.setPresetBulletImage("./resources/Bullet2.png"));
         bulletMenu.addButton("Laser", e -> bulletMenu.setPresetBulletImage("./resources/Bullet3.png"));
 
-        musicMenu.addButton("Custom", e -> musicMenu.loadCustomMusic("/Users/kelvinmathew/Documents/CS3354/project-2/src/spaceinvaders/menus/resources/Music.wav"));
-        musicMenu.addButton("Fun", e -> musicMenu.loadPresetMusic("/Users/kelvinmathew/Documents/CS3354/project-2/src/spaceinvaders/menus/resources/Music2.wav"));
-        musicMenu.addButton("Retro Arcade", e -> musicMenu.loadPresetMusic("/Users/kelvinmathew/Documents/CS3354/project-2/src/spaceinvaders/menus/resources/Music3.wav"));
-        musicMenu.addButton("Electronic", e -> musicMenu.loadPresetMusic("/Users/kelvinmathew/Documents/CS3354/project-2/src/spaceinvaders/menus/resources/Music4.wav"));
+        musicMenu.addButton("Custom", e -> musicMenu.loadCustomMusic("./resources/Music.wav"));
+        musicMenu.addButton("Fun", e -> musicMenu.loadPresetMusic("./resources/Music2.wav"));
+        musicMenu.addButton("Retro Arcade", e -> musicMenu.loadPresetMusic("./resources/Music3.wav"));
+        musicMenu.addButton("Electronic", e -> musicMenu.loadPresetMusic("./resources/Music4.wav"));
         musicMenu.addButton("Stop Music", e -> musicMenu.stopMusic());
         
         menuBar.add(shooterMenu.menu);
