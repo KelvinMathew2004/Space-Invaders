@@ -54,7 +54,7 @@ public class ListenerActions {
                 }
             } else {
                 invaderbox.y += 2;
-                if (invaderbox.y > game.getHeight() || invaderbox.x < 0 || invaderbox.x > game.getWidth()) {
+                if (invaderbox.y > game.getHeight() || invaderbox.x < 0 || invaderbox.x > game.getWidth() - 48) {
                     invaderboxIterator.remove(); // Remove if out of screen
                 }
             }
