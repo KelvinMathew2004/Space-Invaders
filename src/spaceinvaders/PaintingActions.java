@@ -21,12 +21,17 @@ public class PaintingActions {
 
     }
 
-    public void drawInvaders(Graphics g, java.util.List<SpaceInvadersUI.InvaderBox> invaderboxes, Image invaderboxImage, Image explosionImage, SpaceInvadersUI game) {
+    public void drawInvaders(Graphics g, java.util.List<SpaceInvadersUI.InvaderBox> invaderboxes, Image invaderboxImage,
+            SpaceInvadersUI game) {
         for (SpaceInvadersUI.InvaderBox invaderbox : invaderboxes) {
-            if (invaderbox.exploding) {
-                g.drawImage(explosionImage, invaderbox.x, invaderbox.y, invaderbox.size, invaderbox.size, game);
-            } else {
-                g.drawImage(invaderboxImage, invaderbox.x, invaderbox.y, invaderbox.size, invaderbox.size, game);
+            g.drawImage(invaderboxImage, invaderbox.x, invaderbox.y, invaderbox.size, invaderbox.size, game);
+        }
+    }
+
+    public void drawExplosions(Graphics g, java.util.List<SpaceInvadersUI.InvaderBox> invaderboxes, Image explosionImage) {
+        for (SpaceInvadersUI.InvaderBox invaderbox : invaderboxes) {
+            if (invaderbox.exploding && explosionImage != null) {
+                g.drawImage(explosionImage, invaderbox.x - 5, invaderbox.y - 5, invaderbox.size + 10, invaderbox.size + 10, null);
             }
         }
     }

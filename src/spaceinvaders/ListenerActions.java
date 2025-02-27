@@ -81,11 +81,20 @@ public class ListenerActions {
                         new Rectangle(invaderbox.x, invaderbox.y, invaderbox.size, invaderbox.size))) {
                 
                     bulletIterator.remove();
-
                     invaderbox.exploding = true;
-                    invaderbox.explosionCounter = 10;
-                
+                    invaderbox.explosionCounter = 20;
                     break;
+                }
+            }
+        }
+
+        invaderboxIterator = game.invaderboxes.iterator();
+        while (invaderboxIterator.hasNext()) {
+            SpaceInvadersUI.InvaderBox invaderbox = invaderboxIterator.next();
+            if (invaderbox.exploding) {
+                invaderbox.explosionCounter--;
+                if (invaderbox.explosionCounter <= 0) {
+                    invaderboxIterator.remove(); // Remove invader after explosion duration
                 }
             }
         }
