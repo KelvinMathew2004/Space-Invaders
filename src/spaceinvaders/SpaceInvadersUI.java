@@ -32,6 +32,7 @@ public class SpaceInvadersUI extends JPanel implements ActionListener, KeyListen
     private int shooter_height = 60;
     private int shooter_X_Coordinate = 200;
     public boolean shooting = false;
+    private Image explosionImage;
 
     // Constructor
     public SpaceInvadersUI() {
@@ -61,6 +62,7 @@ public class SpaceInvadersUI extends JPanel implements ActionListener, KeyListen
         setFocusable(true);
         addKeyListener(this);
         timer.start();
+        loadExplosionImage("./resources/ExplosionImage.jpg");
     }
 
     private void loadBackgroundImage(String imagePath) {
@@ -68,6 +70,14 @@ public class SpaceInvadersUI extends JPanel implements ActionListener, KeyListen
             backgroundImage = ImageIO.read(SpaceInvadersUI.class.getResource(imagePath));
         } catch (IOException e) {
             System.out.println("Error loading background image: " + e.getMessage());
+        }
+    }
+
+    private void loadExplosionImage(String imagePath) {
+        try {
+            explosionImage = ImageIO.read(SpaceInvadersUI.class.getResource(imagePath));
+        } catch (IOException e) {
+            System.out.println("Error loading explosion image: " + e.getMessage());
         }
     }
 
@@ -111,7 +121,7 @@ public class SpaceInvadersUI extends JPanel implements ActionListener, KeyListen
         paintingActions.drawShooter(g, this);
 
         // Draw falling invaderboxes (as images)
-        paintingActions.drawInvaders(g, invaderboxes, invaderSelection.getInvaderImage(), this);
+        paintingActions.drawInvaders(g, invaderboxes, invaderSelection.getInvaderImage(), explosionImage, this);
 
         // Draw bullets (bullets)
         paintingActions.drawBullets(g, bullets);
@@ -139,7 +149,9 @@ public class SpaceInvadersUI extends JPanel implements ActionListener, KeyListen
     // Inner class representing falling invaderboxes
     public class InvaderBox {
         int x, y, size;
-
+        boolean exploding = false;
+        int explosionCounter = 0;
+    
         public InvaderBox(int x, int y, int size) {
             this.x = x;
             this.y = y;
