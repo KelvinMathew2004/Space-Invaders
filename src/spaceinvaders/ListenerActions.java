@@ -37,17 +37,26 @@ public class ListenerActions {
 
         // Add new falling invaderboxs randomly
         if (game.random.nextInt(100) < 2) {
-            int x = game.random.nextInt(game.getWidth());
-            game.invaderboxes.add(game.new InvaderBox(x, 0, 40)); // Example size 40
+            if (game.getWidth() > 0) {
+                int x = game.random.nextInt(game.getWidth()); 
+                game.invaderboxes.add(game.new InvaderBox(x, 0, 40));
+            }
         }
 
         // Move invaderboxes down
         Iterator<SpaceInvadersUI.InvaderBox> invaderboxIterator = game.invaderboxes.iterator();
         while (invaderboxIterator.hasNext()) {
             SpaceInvadersUI.InvaderBox invaderbox = invaderboxIterator.next();
-            invaderbox.y += 2;
-            if (invaderbox.y > game.getHeight()) {
-                invaderboxIterator.remove(); // Remove invaderboxes that go off the screen
+            if (invaderbox.exploding) {
+                invaderbox.explosionCounter--;
+                if (invaderbox.explosionCounter <= 0) {
+                    invaderboxIterator.remove(); // Remove after explosion animation
+                }
+            } else {
+                invaderbox.y += 2;
+                if (invaderbox.y > game.getHeight() || invaderbox.x < 0 || invaderbox.x > game.getWidth()) {
+                    invaderboxIterator.remove(); // Remove if out of screen
+                }
             }
         }
 
@@ -70,9 +79,22 @@ public class ListenerActions {
                 SpaceInvadersUI.InvaderBox invaderbox = invaderboxIterator.next();
                 if (new Rectangle(bullet.x - 5, bullet.y, 10, 10).intersects(
                         new Rectangle(invaderbox.x, invaderbox.y, invaderbox.size, invaderbox.size))) {
+                
                     bulletIterator.remove();
-                    invaderboxIterator.remove();
+                    invaderbox.exploding = true;
+                    invaderbox.explosionCounter = 20;
                     break;
+                }
+            }
+        }
+
+        invaderboxIterator = game.invaderboxes.iterator();
+        while (invaderboxIterator.hasNext()) {
+            SpaceInvadersUI.InvaderBox invaderbox = invaderboxIterator.next();
+            if (invaderbox.exploding) {
+                invaderbox.explosionCounter--;
+                if (invaderbox.explosionCounter <= 0) {
+                    invaderboxIterator.remove();
                 }
             }
         }

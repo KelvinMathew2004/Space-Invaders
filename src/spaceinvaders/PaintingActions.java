@@ -28,6 +28,14 @@ public class PaintingActions {
         }
     }
 
+    public void drawExplosions(Graphics g, java.util.List<SpaceInvadersUI.InvaderBox> invaderboxes, Image explosionImage) {
+        for (SpaceInvadersUI.InvaderBox invaderbox : invaderboxes) {
+            if (invaderbox.exploding && explosionImage != null) {
+                g.drawImage(explosionImage, invaderbox.x - 5, invaderbox.y - 5, invaderbox.size + 10, invaderbox.size + 10, null);
+            }
+        }
+    }
+
     public void drawBullets(Graphics g, java.util.List<SpaceInvadersUI.Bullet> bullets) {
         BulletSelection.drawBullets(g, bullets);
     }

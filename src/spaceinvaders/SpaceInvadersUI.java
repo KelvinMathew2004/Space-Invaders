@@ -13,6 +13,7 @@ import spaceinvaders.menus.BulletSelection;
 import spaceinvaders.menus.InvaderSelection;
 import spaceinvaders.menus.ShooterSelection;
 import spaceinvaders.menus.MusicSelection;
+import spaceinvaders.menus.ExplosionSelection;
 
 public class SpaceInvadersUI extends JPanel implements ActionListener, KeyListener {
 
@@ -26,12 +27,14 @@ public class SpaceInvadersUI extends JPanel implements ActionListener, KeyListen
     public final ShooterSelection shooterSelection;
     public final MusicSelection musicSelection;
     public final BulletSelection bulletSelection;
+    public ExplosionSelection explosionSelection;
     private final PaintingActions paintingActions;
     private Image backgroundImage;
     private int shooter_width = 50;
     private int shooter_height = 60;
     private int shooter_X_Coordinate = 200;
     public boolean shooting = false;
+    public Image explosionImage;
 
     // Constructor
     public SpaceInvadersUI() {
@@ -48,13 +51,14 @@ public class SpaceInvadersUI extends JPanel implements ActionListener, KeyListen
         musicSelection = new MusicSelection();
         bulletSelection = new BulletSelection();
         paintingActions = new PaintingActions();
-
+        explosionSelection = new ExplosionSelection();
         // Set images and music
         shooterSelection.setPresetShooterImage("./resources/ShooterImage4.png");
         invaderSelection.setPresetInvaderImage("./resources/InvaderImage4.png");
-        musicSelection.loadPresetMusic("./resources/Music3.wav");
+        musicSelection.loadPresetMusic("./resources/Music.wav");
 
         loadBackgroundImage("./menus/resources/Background.png");
+        explosionSelection.setPresetExplosionImage("./resources/ExplosionImage.png");
 
         bulletSelection.setPresetBulletImage("./resources/Bullet3.png");
 
@@ -115,6 +119,8 @@ public class SpaceInvadersUI extends JPanel implements ActionListener, KeyListen
 
         // Draw bullets (bullets)
         paintingActions.drawBullets(g, bullets);
+
+        paintingActions.drawExplosions(g, invaderboxes, explosionSelection.getExplosionImage());
     }
 
     public int getShooterWidth() {
@@ -139,7 +145,9 @@ public class SpaceInvadersUI extends JPanel implements ActionListener, KeyListen
     // Inner class representing falling invaderboxes
     public class InvaderBox {
         int x, y, size;
-
+        boolean exploding = false;
+        int explosionCounter = 0;
+    
         public InvaderBox(int x, int y, int size) {
             this.x = x;
             this.y = y;
