@@ -39,7 +39,7 @@ public class ListenerActions {
         if (game.random.nextInt(100) < 2) {
             if (game.getWidth() > 0) {
                 int x = game.random.nextInt(game.getWidth()); 
-                game.invaderboxes.add(game.new InvaderBox(x, 0, 40));
+                game.invaderboxes.add(game.new InvaderBox(x, -40, 40));
             }
         }
 
