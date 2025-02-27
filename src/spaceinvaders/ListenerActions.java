@@ -77,6 +77,11 @@ public class ListenerActions {
             invaderboxIterator = game.invaderboxes.iterator();
             while (invaderboxIterator.hasNext()) {
                 SpaceInvadersUI.InvaderBox invaderbox = invaderboxIterator.next();
+                
+                if (invaderbox.exploding) {
+                    continue;
+                }
+
                 if (new Rectangle(bullet.x - 5, bullet.y, 10, 10).intersects(
                         new Rectangle(invaderbox.x, invaderbox.y, invaderbox.size, invaderbox.size))) {
                 
