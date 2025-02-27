@@ -94,7 +94,7 @@ public class ListenerActions {
             if (invaderbox.exploding) {
                 invaderbox.explosionCounter--;
                 if (invaderbox.explosionCounter <= 0) {
-                    invaderboxIterator.remove(); // Remove invader after explosion duration
+                    invaderboxIterator.remove();
                 }
             }
         }
