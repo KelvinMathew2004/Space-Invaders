@@ -13,6 +13,7 @@ import spaceinvaders.menus.BulletSelection;
 import spaceinvaders.menus.InvaderSelection;
 import spaceinvaders.menus.ShooterSelection;
 import spaceinvaders.menus.MusicSelection;
+import spaceinvaders.menus.ExplosionSelection;
 
 public class SpaceInvadersUI extends JPanel implements ActionListener, KeyListener {
 
@@ -26,13 +27,14 @@ public class SpaceInvadersUI extends JPanel implements ActionListener, KeyListen
     public final ShooterSelection shooterSelection;
     public final MusicSelection musicSelection;
     public final BulletSelection bulletSelection;
+    public ExplosionSelection explosionSelection;
     private final PaintingActions paintingActions;
     private Image backgroundImage;
     private int shooter_width = 50;
     private int shooter_height = 60;
     private int shooter_X_Coordinate = 200;
     public boolean shooting = false;
-    private Image explosionImage;
+    public Image explosionImage;
 
     // Constructor
     public SpaceInvadersUI() {
@@ -49,20 +51,20 @@ public class SpaceInvadersUI extends JPanel implements ActionListener, KeyListen
         musicSelection = new MusicSelection();
         bulletSelection = new BulletSelection();
         paintingActions = new PaintingActions();
-
+        explosionSelection = new ExplosionSelection();
         // Set images and music
         shooterSelection.setPresetShooterImage("./resources/ShooterImage4.png");
         invaderSelection.setPresetInvaderImage("./resources/InvaderImage4.png");
         musicSelection.loadPresetMusic("./resources/Music3.wav");
 
         loadBackgroundImage("./menus/resources/Background.png");
+        explosionSelection.setPresetExplosionImage("./resources/ExplosionImage.jpg");
 
         bulletSelection.setPresetBulletImage("./resources/Bullet3.png");
 
         setFocusable(true);
         addKeyListener(this);
         timer.start();
-        loadExplosionImage("./resources/ExplosionImage.jpg");
     }
 
     private void loadBackgroundImage(String imagePath) {
@@ -70,14 +72,6 @@ public class SpaceInvadersUI extends JPanel implements ActionListener, KeyListen
             backgroundImage = ImageIO.read(SpaceInvadersUI.class.getResource(imagePath));
         } catch (IOException e) {
             System.out.println("Error loading background image: " + e.getMessage());
-        }
-    }
-
-    private void loadExplosionImage(String imagePath) {
-        try {
-            explosionImage = ImageIO.read(SpaceInvadersUI.class.getResource(imagePath));
-        } catch (IOException e) {
-            System.out.println("Error loading explosion image: " + e.getMessage());
         }
     }
 

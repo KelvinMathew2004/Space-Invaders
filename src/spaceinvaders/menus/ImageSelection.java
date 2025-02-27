@@ -12,6 +12,7 @@ import spaceinvaders.GameExceptions;
 public class ImageSelection extends MenuBar{
     protected static Image shooterImage;
     protected static Image invaderImage;
+    protected static Image explosionImage;
 
     protected static Image loadCustomImage(String imageType, String defaultResourcePath) {
         String imageUrl = JOptionPane.showInputDialog(null,
