@@ -7,7 +7,7 @@ import java.util.Iterator;
 public class ListenerActions {
 
     private int fireCooldown = 0;
-
+    public final ScoreCard scoreCount = new ScoreCard();
     public void updatePositions(SpaceInvadersUI game) {
 
         int shooter_X_Coordinate = game.getShooter_X_Coordinate();
@@ -30,7 +30,7 @@ public class ListenerActions {
                 int shooter_height = game.getShooterHeight();
                 game.bullets.add(
                         game.new Bullet(shooter_X_Coordinate + shooter_width / 2, game.getHeight() - shooter_height));
-                fireCooldown = 10;
+                fireCooldown = 20;
                 fireCooldown--;
             }
         }
@@ -54,7 +54,11 @@ public class ListenerActions {
                 }
             } else {
                 invaderbox.y += 2;
-                if (invaderbox.y > game.getHeight() || invaderbox.x < 10 || invaderbox.x > game.getWidth() - (invaderbox.size + 10)) {
+                if (invaderbox.y > game.getHeight()) {
+                    invaderboxIterator.remove(); 
+                    scoreCount.decreaseScore(10); 
+                }
+                if(invaderbox.x < 10 || invaderbox.x > game.getWidth() - (invaderbox.size + 10)) {
                     invaderboxIterator.remove(); // Remove if out of screen
                 }
             }
@@ -88,7 +92,8 @@ public class ListenerActions {
                     bulletIterator.remove();
                     invaderbox.exploding = true;
                     invaderbox.explosionCounter = 20;
-                    break;
+                    
+                    scoreCount.increaseScore(1); 
                 }
             }
         }

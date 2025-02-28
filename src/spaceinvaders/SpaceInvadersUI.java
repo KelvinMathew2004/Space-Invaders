@@ -27,14 +27,16 @@ public class SpaceInvadersUI extends JPanel implements ActionListener, KeyListen
     public final ShooterSelection shooterSelection;
     public final MusicSelection musicSelection;
     public final BulletSelection bulletSelection;
-    public ExplosionSelection explosionSelection;
+    public final ExplosionSelection explosionSelection;
+    public final ScoreCard scoreCounter;
     private final PaintingActions paintingActions;
     private Image backgroundImage;
     private int shooter_width = 50;
     private int shooter_height = 60;
-    private int shooter_X_Coordinate = 200;
+    private int shooter_X_Coordinate = 275;
     public boolean shooting = false;
     public Image explosionImage;
+    public static SpaceInvadersUI gameInstance;
 
     // Constructor
     public SpaceInvadersUI() {
@@ -52,10 +54,12 @@ public class SpaceInvadersUI extends JPanel implements ActionListener, KeyListen
         bulletSelection = new BulletSelection();
         paintingActions = new PaintingActions();
         explosionSelection = new ExplosionSelection();
+        scoreCounter = new ScoreCard(); 
         // Set images and music
         shooterSelection.setPresetShooterImage("./resources/ShooterImage4.png");
         invaderSelection.setPresetInvaderImage("./resources/InvaderImage4.png");
         musicSelection.loadPresetMusic("./resources/Music.wav");
+        gameInstance = this;
 
         loadBackgroundImage("./menus/resources/Background.png");
         explosionSelection.setPresetExplosionImage("./resources/ExplosionImage.png");
@@ -73,6 +77,25 @@ public class SpaceInvadersUI extends JPanel implements ActionListener, KeyListen
         } catch (IOException e) {
             System.out.println("Error loading background image: " + e.getMessage());
         }
+    }
+
+    public void startNewGame(){
+        gameInstance.scoreCounter.resetScore(); 
+        gameInstance.invaderboxes.clear();
+        gameInstance.bullets.clear();
+
+        gameInstance.moveLeft = false;
+        gameInstance.moveRight = false;
+        gameInstance.shooting = false;
+        
+        gameInstance.shooter_X_Coordinate = gameInstance.getWidth() / 2 - gameInstance.shooter_width / 2;
+        
+        gameInstance.getInputMap().clear();
+        gameInstance.getActionMap().clear();
+
+        gameInstance.timer.restart();
+
+        repaint();
     }
 
     @Override
@@ -121,6 +144,10 @@ public class SpaceInvadersUI extends JPanel implements ActionListener, KeyListen
         paintingActions.drawBullets(g, bullets);
 
         paintingActions.drawExplosions(g, invaderboxes, explosionSelection.getExplosionImage());
+        
+        g.setColor(Color.WHITE);
+        g.setFont(new Font("Papyrus", Font.BOLD, 20));
+        g.drawString("Score: " + scoreCounter.getScore(), 10, 20);
     }
 
     public int getShooterWidth() {
