@@ -147,7 +147,7 @@ public class SpaceInvadersUI extends JPanel implements ActionListener, KeyListen
         
         g.setColor(Color.WHITE);
         g.setFont(new Font("Papyrus", Font.BOLD, 20));
-        g.drawString("Score: " + scoreCounter.getScore(), 10, 20);
+        g.drawString("Score: " + scoreCounter.getScore(), 20, 30);
     }
 
     public int getShooterWidth() {

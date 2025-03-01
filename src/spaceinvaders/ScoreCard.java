@@ -1,7 +1,7 @@
 package spaceinvaders;
 
 public class ScoreCard {
-    private int score = 0;
+    static int score = 0;
 
     public void increaseScore(int points){
         score += points;
