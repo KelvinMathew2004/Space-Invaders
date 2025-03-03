@@ -3,8 +3,10 @@ package spaceinvaders;
 import java.awt.*;
 
 import spaceinvaders.menus.BulletSelection;
+import spaceinvaders.menus.MusicSelection;
 
 public class PaintingActions {
+    MusicSelection musicSelection = new MusicSelection();
 
     public PaintingActions() {
 
@@ -29,6 +31,7 @@ public class PaintingActions {
     }
 
     public void drawExplosions(Graphics g, java.util.List<SpaceInvadersUI.InvaderBox> invaderboxes, Image explosionImage) {
+        musicSelection.playSoundEffect("./resources/Explosion.wav");
         for (SpaceInvadersUI.InvaderBox invaderbox : invaderboxes) {
             if (invaderbox.exploding && explosionImage != null) {
                 g.drawImage(explosionImage, invaderbox.x - 5, invaderbox.y - 5, invaderbox.size + 10, invaderbox.size + 10, null);
@@ -37,6 +40,7 @@ public class PaintingActions {
     }
 
     public void drawBullets(Graphics g, java.util.List<SpaceInvadersUI.Bullet> bullets) {
+        musicSelection.playSoundEffect("./resources/" + BulletSelection.getBulletType() + ".wav");
         BulletSelection.drawBullets(g, bullets);
     }
 }
