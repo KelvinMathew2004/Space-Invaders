@@ -9,6 +9,7 @@ import spaceinvaders.GameExceptions;
 
 public class MusicSelection extends MenuBar {
     private static Clip clip;
+    private static Clip sfx;
 
     public MusicSelection() {
         super();
@@ -58,6 +59,23 @@ public class MusicSelection extends MenuBar {
         clip.open(audioStream);
         clip.loop(Clip.LOOP_CONTINUOUSLY);
         clip.start();
+    }
+
+    public void playSoundEffect(String resourcePath) {
+        try {
+            InputStream audioSrc = getClass().getResourceAsStream(resourcePath);
+            if (audioSrc == null) {
+                GameExceptions.showErrorDialog("Music file not found: " + resourcePath);
+                return;
+            }
+
+            AudioInputStream audioStream = AudioSystem.getAudioInputStream(audioSrc);
+            sfx = AudioSystem.getClip();
+            sfx.open(audioStream);
+            sfx.start();
+        } catch (Exception e) {
+            GameExceptions.showErrorDialog("Error playing music: " + e.getMessage());
+        }
     }
 
     public void stopMusic() {
