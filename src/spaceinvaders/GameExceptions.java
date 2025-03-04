@@ -1,6 +1,7 @@
 package spaceinvaders;
 
 import javax.swing.JOptionPane;
+import spaceinvaders.SpaceInvadersUI;
 
 public class GameExceptions {
     
@@ -21,6 +22,15 @@ public class GameExceptions {
         else{
             System.exit(0);
         }
+    }
+
+    public static int showGamePaused(String infoMessage) {
+        int option = JOptionPane.showOptionDialog(
+            null, infoMessage + "\nDo you want to restart or resume?", "Game Paused",
+            JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE, null,
+            new String[]{"Restart", "Resume"}, "Resume"
+        );
+        return option;
     }
 }
         

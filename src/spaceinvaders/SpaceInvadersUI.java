@@ -106,6 +106,16 @@ public class SpaceInvadersUI extends JPanel implements ActionListener, KeyListen
         repaint();
     }
 
+    public void pauseGame() {
+        timer.stop();
+        int option = GameExceptions.showGamePaused("Game Paused");
+        if (option == JOptionPane.YES_OPTION) { // Restart option
+            SpaceInvadersUI.gameInstance.startNewGame();
+        } else { // Resume option
+            SpaceInvadersUI.gameInstance.timer.start(); // Resume the game
+        }
+    }
+
     @Override
     // Perhaps change this to specifically look for timer event or move all code to
     // ListenerActions and add overloading
