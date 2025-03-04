@@ -34,6 +34,10 @@ public class SpaceInvadersUI extends JPanel implements ActionListener, KeyListen
     private int shooter_width = 50;
     private int shooter_height = 60;
     private int shooter_X_Coordinate = 275;
+    private int currentScore;
+    private int lastScore;
+    private int cooldownCounter = 0;
+    private static final int COOLDOWN_DURATION = 60;
     public boolean shooting = false;
     public Image explosionImage;
     public static SpaceInvadersUI gameInstance;
@@ -87,6 +91,10 @@ public class SpaceInvadersUI extends JPanel implements ActionListener, KeyListen
         gameInstance.moveLeft = false;
         gameInstance.moveRight = false;
         gameInstance.shooting = false;
+        
+        cooldownCounter = 0;
+        currentScore = 0;
+        lastScore = 0;
         
         gameInstance.shooter_X_Coordinate = gameInstance.getWidth() / 2 - gameInstance.shooter_width / 2;
         
@@ -144,10 +152,39 @@ public class SpaceInvadersUI extends JPanel implements ActionListener, KeyListen
         paintingActions.drawBullets(g, bullets);
 
         paintingActions.drawExplosions(g, invaderboxes, explosionSelection.getExplosionImage());
+
+        currentScore = scoreCounter.getScore();
+        if (currentScore < lastScore) {
+            cooldownCounter = COOLDOWN_DURATION;
+        }
         
-        g.setColor(Color.WHITE);
+        if (cooldownCounter > 0) {
+            g.setColor(Color.RED);
+            cooldownCounter--;
+        } else {
+            g.setColor(Color.WHITE);
+        }
+
         g.setFont(new Font("Papyrus", Font.BOLD, 20));
-        g.drawString("Score: " + scoreCounter.getScore(), 20, 30);
+        g.drawString("Score: " + currentScore, 20, 30);
+
+        if (cooldownCounter > 0) {
+            drawGlowingBorder(g);
+        }
+
+        lastScore = currentScore;
+    }
+
+    private void drawGlowingBorder(Graphics g) {
+        Graphics2D g2d = (Graphics2D) g;
+        g2d.setStroke(new BasicStroke(5));
+        g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+        float alpha = Math.max(0.1f, (float) cooldownCounter / COOLDOWN_DURATION);
+        Color glowColor = new Color(255, 0, 0, (int) (alpha * 255));
+    
+        g2d.setColor(glowColor);
+        int thickness = 5;
+        g2d.drawRect(thickness / 2, thickness / 2, getWidth() - thickness, getHeight() - thickness);
     }
 
     public int getShooterWidth() {
