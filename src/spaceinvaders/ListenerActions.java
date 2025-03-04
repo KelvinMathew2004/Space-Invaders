@@ -11,6 +11,7 @@ public class ListenerActions {
     MusicSelection musicSelection = new MusicSelection();
 
     private int fireCooldown = 0;
+    private boolean clicked = false;
     public final ScoreCard scoreCount = new ScoreCard();
     public void updatePositions(SpaceInvadersUI game) {
 
@@ -136,6 +137,15 @@ public class ListenerActions {
         }
         if (key == KeyEvent.VK_SPACE) {
             game.shooting = true;
+        }
+        if (key == KeyEvent.VK_P) {
+            if (!clicked) {
+                game.pauseGame();
+                clicked = true;
+            } else {
+                game.resumeGame();
+                clicked = false;
+            }
         }
     }
 

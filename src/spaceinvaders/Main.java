@@ -1,7 +1,9 @@
 package spaceinvaders;
 
 import javax.swing.JFrame;
+import javax.swing.JMenu;
 import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
 
 import spaceinvaders.menus.ShooterSelection;
 import spaceinvaders.menus.BulletSelection;
@@ -47,11 +49,26 @@ public class Main {
         musicMenu.addButton("Retro Arcade", e -> musicMenu.loadPresetMusic("./resources/Music3.wav"));
         musicMenu.addButton("Electronic", e -> musicMenu.loadPresetMusic("./resources/Music4.wav"));
         musicMenu.addButton("Stop Music", e -> musicMenu.stopMusic());
-        
+
+        JMenu settings = new JMenu("Settings");
+
+        JMenuItem pauseItem = new JMenuItem("Pause");
+        pauseItem.addActionListener(e -> game.pauseGame());
+        settings.add(pauseItem);
+
+        JMenuItem resumeItem = new JMenuItem("Resume");
+        resumeItem.addActionListener(e -> game.resumeGame());
+        settings.add(resumeItem);
+
+        JMenuItem restartItem = new JMenuItem("Restart");
+        restartItem.addActionListener(e -> game.startNewGame());
+        settings.add(restartItem);
+
         menuBar.add(shooterMenu.menu);
         menuBar.add(invaderMenu.menu);
         menuBar.add(bulletMenu.menu);
         menuBar.add(musicMenu.menu);
+        menuBar.add(settings);
 
         frame.setJMenuBar(menuBar);
         frame.add(game);
