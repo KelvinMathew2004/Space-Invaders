@@ -61,17 +61,22 @@ public class MusicSelection extends MenuBar {
         clip.start();
     }
 
-    public void playSoundEffect(String resourcePath) {
+    public void playSoundEffect(String resourcePath, float volume) {
         try {
             InputStream audioSrc = getClass().getResourceAsStream(resourcePath);
             if (audioSrc == null) {
                 GameExceptions.showErrorDialog("Music file not found: " + resourcePath);
                 return;
             }
-
             AudioInputStream audioStream = AudioSystem.getAudioInputStream(audioSrc);
             sfx = AudioSystem.getClip();
             sfx.open(audioStream);
+            FloatControl gainControl = (FloatControl) sfx.getControl(FloatControl.Type.MASTER_GAIN);
+            float min = gainControl.getMinimum();
+            float max = gainControl.getMaximum();
+            float range = max - min;
+            float dB = min + (range * volume);
+            gainControl.setValue(dB);
             sfx.start();
         } catch (Exception e) {
             GameExceptions.showErrorDialog("Error playing music: " + e.getMessage());

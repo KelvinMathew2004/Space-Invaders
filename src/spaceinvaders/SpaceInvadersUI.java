@@ -64,7 +64,7 @@ public class SpaceInvadersUI extends JPanel implements ActionListener, KeyListen
         loadBackgroundImage("./menus/resources/Background.png");
         explosionSelection.setPresetExplosionImage("./resources/ExplosionImage.png");
 
-        bulletSelection.setPresetBulletImage("./resources/Bullet3.png");
+        bulletSelection.setPresetBulletImage("Bullet3");
 
         setFocusable(true);
         addKeyListener(this);
