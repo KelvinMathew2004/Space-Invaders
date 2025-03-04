@@ -37,9 +37,9 @@ public class Main {
         invaderMenu.addButton("Zygar Swarm", e -> invaderMenu.setPresetInvaderImage("./resources/InvaderImage7.png"));
 
         bulletMenu.addButton("Custom", e -> bulletMenu.loadCustomBulletImage());
-        bulletMenu.addButton("Fireball", e -> bulletMenu.setPresetBulletImage("./resources/Bullet.png"));
-        bulletMenu.addButton("Nuke", e -> bulletMenu.setPresetBulletImage("./resources/Bullet2.png"));
-        bulletMenu.addButton("Laser", e -> bulletMenu.setPresetBulletImage("./resources/Bullet3.png"));
+        bulletMenu.addButton("Fireball", e -> bulletMenu.setPresetBulletImage("Bullet"));
+        bulletMenu.addButton("Nuke", e -> bulletMenu.setPresetBulletImage("Bullet2"));
+        bulletMenu.addButton("Laser", e -> bulletMenu.setPresetBulletImage("Bullet3"));
 
         musicMenu.addButton("Custom", e -> musicMenu.loadCustomMusic("./resources/Music3.wav"));
         musicMenu.addButton("Space", e -> musicMenu.loadPresetMusic("./resources/Music.wav"));

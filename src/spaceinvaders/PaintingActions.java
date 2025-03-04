@@ -3,7 +3,6 @@ package spaceinvaders;
 import java.awt.*;
 
 import spaceinvaders.menus.BulletSelection;
-
 public class PaintingActions {
 
     public PaintingActions() {

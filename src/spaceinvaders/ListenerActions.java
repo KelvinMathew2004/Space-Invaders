@@ -4,7 +4,11 @@ import java.awt.*;
 import java.awt.event.*;
 import java.util.Iterator;
 
+import spaceinvaders.menus.BulletSelection;
+import spaceinvaders.menus.MusicSelection;
+
 public class ListenerActions {
+    MusicSelection musicSelection = new MusicSelection();
 
     private int fireCooldown = 0;
     public final ScoreCard scoreCount = new ScoreCard();
@@ -28,6 +32,13 @@ public class ListenerActions {
             if (fireCooldown <= 0) {
                 int shooter_width = game.getShooterWidth();
                 int shooter_height = game.getShooterHeight();
+                // if (BulletSelection.getBulletType() == "Bullet")
+                //     musicSelection.playSoundEffect("./resources/Bullet.wav", 0.7f);
+                // else if (BulletSelection.getBulletType() == "Bullet2") 
+                //     musicSelection.playSoundEffect("./resources/Bullet2.wav", 0.7f);
+                // else if (BulletSelection.getBulletType() == "Bullet3")
+                //     musicSelection.playSoundEffect("./resources/Bullet3.wav", 0.6f);
+                musicSelection.playSoundEffect("./resources/" + BulletSelection.getBulletType() + ".wav", 0.7f);
                 game.bullets.add(
                         game.new Bullet(shooter_X_Coordinate + shooter_width / 2, game.getHeight() - shooter_height));
                 fireCooldown = 20;
@@ -92,7 +103,11 @@ public class ListenerActions {
                     bulletIterator.remove();
                     invaderbox.exploding = true;
                     invaderbox.explosionCounter = 20;
-                    
+
+                    if(invaderbox.explosionCounter == 20) {
+                        musicSelection.playSoundEffect("./resources/Explosion2.wav", 0.7f);
+                    }
+
                     scoreCount.increaseScore(1); 
                 }
             }

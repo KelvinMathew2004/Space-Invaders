@@ -5,6 +5,7 @@ import spaceinvaders.SpaceInvadersUI;
 
 public class BulletSelection extends ImageSelection{
     private static Image bulletImage;
+    private static String bulletType;
 
     public BulletSelection() {
         super();
@@ -15,8 +16,13 @@ public class BulletSelection extends ImageSelection{
         bulletImage = loadCustomImage("bullet", "./resources/Bullet.png");
     }
 
-    public void setPresetBulletImage(String resourcePath) {
-        bulletImage = loadPresetImage("bullet", resourcePath);
+    public void setPresetBulletImage(String resourceName) {
+        bulletImage = loadPresetImage("bullet", "./resources/" + resourceName + ".png");
+        bulletType = resourceName;
+    }
+
+    public static String getBulletType() {
+        return bulletType;
     }
 
     public static void drawBullets(Graphics g, java.util.List<SpaceInvadersUI.Bullet> bullets) {        
