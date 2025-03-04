@@ -106,6 +106,16 @@ public class SpaceInvadersUI extends JPanel implements ActionListener, KeyListen
         repaint();
     }
 
+    public void pauseGame() {
+        timer.stop();
+        repaint();
+    }
+
+    public void resumeGame() {
+        timer.start();
+        repaint();
+    }
+
     @Override
     // Perhaps change this to specifically look for timer event or move all code to
     // ListenerActions and add overloading
@@ -152,27 +162,33 @@ public class SpaceInvadersUI extends JPanel implements ActionListener, KeyListen
         paintingActions.drawBullets(g, bullets);
 
         paintingActions.drawExplosions(g, invaderboxes, explosionSelection.getExplosionImage());
-
-        currentScore = scoreCounter.getScore();
-        if (currentScore < lastScore) {
-            cooldownCounter = COOLDOWN_DURATION;
-        }
         
-        if (cooldownCounter > 0) {
-            g.setColor(Color.RED);
-            cooldownCounter--;
+        if (!timer.isRunning()) {
+            g.setFont(new Font("Papyrus", Font.BOLD, 30));
+            g.setColor(Color.YELLOW);
+            g.drawString("Game Paused", getWidth() / 2 - 80, getHeight() / 2);
         } else {
-            g.setColor(Color.WHITE);
+            currentScore = scoreCounter.getScore();
+            if (currentScore < lastScore) {
+                cooldownCounter = COOLDOWN_DURATION;
+            }
+        
+            if (cooldownCounter > 0) {
+                g.setColor(Color.RED);
+                cooldownCounter--;
+            } else {
+                g.setColor(Color.WHITE);
+            }
+
+            g.setFont(new Font("Papyrus", Font.BOLD, 20));
+            g.drawString("Score: " + currentScore, 20, 30);
+
+            if (cooldownCounter > 0) {
+                drawGlowingBorder(g);
+            }
+
+            lastScore = currentScore;
         }
-
-        g.setFont(new Font("Papyrus", Font.BOLD, 20));
-        g.drawString("Score: " + currentScore, 20, 30);
-
-        if (cooldownCounter > 0) {
-            drawGlowingBorder(g);
-        }
-
-        lastScore = currentScore;
     }
 
     private void drawGlowingBorder(Graphics g) {
