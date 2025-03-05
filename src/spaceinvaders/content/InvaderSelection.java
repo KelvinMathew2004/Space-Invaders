@@ -1,22 +1,21 @@
-package spaceinvaders.menus;
+package spaceinvaders.content;
 
 import java.awt.*;
 
+import spaceinvaders.SpaceInvadersUI;
+
 public class InvaderSelection extends ImageSelection {
-    public InvaderSelection() {
-        super();
-        createMenu("Invader");
-    }
-
-    public void setCustomInvaderImage() {
+    public static void setCustomInvaderImage(SpaceInvadersUI game) {
         invaderImage = loadCustomImage("invader", "./resources/InvaderImage.png");
+        game.repaint();
     }
 
-    public void setPresetInvaderImage(String resourcePath) {
+    public static void setPresetInvaderImage(SpaceInvadersUI game, String resourcePath) {
         invaderImage = loadPresetImage("invader", resourcePath);
+        game.repaint();
     }
 
-    public Image getInvaderImage() {
+    public static Image getInvaderImage() {
         return invaderImage;
     }
 }

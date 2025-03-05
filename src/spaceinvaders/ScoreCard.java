@@ -2,6 +2,11 @@ package spaceinvaders;
 
 public class ScoreCard {
     static int score = 0;
+    private SpaceInvadersUI gameInstance;
+
+    public ScoreCard(SpaceInvadersUI game){
+        this.gameInstance = game;
+    }
 
     public void increaseScore(int points){
         score += points;
@@ -11,6 +16,7 @@ public class ScoreCard {
         score += -points;
 
         if(score < 0){
+            gameInstance.setGameOver(true);
             GameExceptions.showGameOver("Better Luck Next Time!");
         }
     }

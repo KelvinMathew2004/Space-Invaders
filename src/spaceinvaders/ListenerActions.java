@@ -4,19 +4,21 @@ import java.awt.*;
 import java.awt.event.*;
 import java.util.Iterator;
 
-import spaceinvaders.menus.BulletSelection;
-import spaceinvaders.menus.MusicSelection;
+import spaceinvaders.content.BulletSelection;
+import spaceinvaders.content.MusicSelection;
 
 public class ListenerActions {
     MusicSelection musicSelection = new MusicSelection();
 
     private int fireCooldown = 0;
     private boolean clicked = false;
-    public final ScoreCard scoreCount = new ScoreCard();
+    
     public void updatePositions(SpaceInvadersUI game) {
 
         int shooter_X_Coordinate = game.getShooter_X_Coordinate();
         int shooter_Width = game.getShooterWidth();
+        ScoreCard scoreCount = new ScoreCard(game);
+
         // Move shooter left or right
         if (game.moveLeft && shooter_X_Coordinate > 0) {
             game.setShooter_X_Coordinate(shooter_X_Coordinate - 5);

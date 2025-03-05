@@ -1,4 +1,4 @@
-package spaceinvaders.menus;
+package spaceinvaders.content;
 
 import java.awt.*;
 import java.io.IOException;
@@ -9,7 +9,7 @@ import javax.swing.*;
 
 import spaceinvaders.GameExceptions;
 
-public class ImageSelection extends MenuBar{
+public class ImageSelection {
     protected static Image shooterImage;
     protected static Image invaderImage;
     protected static Image explosionImage;

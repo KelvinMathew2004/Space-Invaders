@@ -1,17 +1,13 @@
-package spaceinvaders.menus;
+package spaceinvaders.content;
 
 import java.awt.*;
 
 public class ExplosionSelection extends ImageSelection{
-    public ExplosionSelection(){
-        super();
-    }
-
-    public void setPresetExplosionImage(String resourcePath) {
+    public static void setPresetExplosionImage(String resourcePath) {
         explosionImage = loadPresetImage("explosion", resourcePath);
     }
 
-    public Image getExplosionImage() {
+    public static Image getExplosionImage() {
         return explosionImage;
     }
 }

@@ -16,4 +16,8 @@ public class MenuBar {
         menuItem.addActionListener(action);
         menu.add(menuItem);
     }
+
+    public JMenu getMenu() {
+        return menu;
+    }
 }

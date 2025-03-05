@@ -1,22 +1,22 @@
-package spaceinvaders.menus;
+package spaceinvaders.content;
 
 import java.awt.*;
 
+import spaceinvaders.SpaceInvadersUI;
+
 public class ShooterSelection extends ImageSelection {
-    public ShooterSelection() {
-        super();
-        createMenu("Shooter");
-    }
 
-    public void setCustomShooterImage() {
+    public static void setCustomShooterImage(SpaceInvadersUI game) {
         shooterImage = loadCustomImage("shooter", "./resources/ShooterImage.png");
+        game.repaint();
     }
 
-    public void setPresetShooterImage(String resourcePath) {
+    public static void setPresetShooterImage(SpaceInvadersUI game, String resourcePath) {
         shooterImage = loadPresetImage("shooter", resourcePath);
+        game.repaint();
     }
 
-    public Image getShooterImage() {
+    public static Image getShooterImage() {
         return shooterImage;
     }
 }

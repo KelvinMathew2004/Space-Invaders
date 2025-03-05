@@ -9,11 +9,11 @@ import java.util.Random;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 
-import spaceinvaders.menus.BulletSelection;
-import spaceinvaders.menus.InvaderSelection;
-import spaceinvaders.menus.ShooterSelection;
-import spaceinvaders.menus.MusicSelection;
-import spaceinvaders.menus.ExplosionSelection;
+import spaceinvaders.content.BulletSelection;
+import spaceinvaders.content.ExplosionSelection;
+import spaceinvaders.content.InvaderSelection;
+import spaceinvaders.content.MusicSelection;
+import spaceinvaders.content.ShooterSelection;
 
 public class SpaceInvadersUI extends JPanel implements ActionListener, KeyListener {
 
@@ -23,11 +23,7 @@ public class SpaceInvadersUI extends JPanel implements ActionListener, KeyListen
     public Random random;
     public boolean moveLeft, moveRight;
     private final ListenerActions listenerActions;
-    public final InvaderSelection invaderSelection;
-    public final ShooterSelection shooterSelection;
     public final MusicSelection musicSelection;
-    public final BulletSelection bulletSelection;
-    public final ExplosionSelection explosionSelection;
     public final ScoreCard scoreCounter;
     private final PaintingActions paintingActions;
     private Image backgroundImage;
@@ -41,6 +37,7 @@ public class SpaceInvadersUI extends JPanel implements ActionListener, KeyListen
     public boolean shooting = false;
     public Image explosionImage;
     public static SpaceInvadersUI gameInstance;
+    private static boolean gameOver = false;
 
     // Constructor
     public SpaceInvadersUI() {
@@ -51,24 +48,20 @@ public class SpaceInvadersUI extends JPanel implements ActionListener, KeyListen
         random = new Random();
         moveLeft = false;
         moveRight = false;
-        listenerActions = new ListenerActions();
-        invaderSelection = new InvaderSelection();
-        shooterSelection = new ShooterSelection();
-        musicSelection = new MusicSelection();
-        bulletSelection = new BulletSelection();
-        paintingActions = new PaintingActions();
-        explosionSelection = new ExplosionSelection();
-        scoreCounter = new ScoreCard(); 
-        // Set images and music
-        shooterSelection.setPresetShooterImage("./resources/ShooterImage4.png");
-        invaderSelection.setPresetInvaderImage("./resources/InvaderImage4.png");
-        musicSelection.loadPresetMusic("./resources/Music.wav");
         gameInstance = this;
+        listenerActions = new ListenerActions();
+        paintingActions = new PaintingActions();
+        musicSelection = new MusicSelection();
+        scoreCounter = new ScoreCard(gameInstance); 
 
-        loadBackgroundImage("./menus/resources/Background.png");
-        explosionSelection.setPresetExplosionImage("./resources/ExplosionImage.png");
+        // Set images and music
+        ShooterSelection.setPresetShooterImage(gameInstance, "./resources/ShooterImage4.png");
+        InvaderSelection.setPresetInvaderImage(gameInstance, "./resources/InvaderImage4.png");
+        ExplosionSelection.setPresetExplosionImage("./resources/ExplosionImage.png");
+        BulletSelection.setPresetBulletImage(gameInstance, "Bullet3");
+        loadBackgroundImage("./content/resources/Background.png");
+        musicSelection.loadPresetMusic("./resources/Music.wav");
 
-        bulletSelection.setPresetBulletImage("Bullet3");
 
         setFocusable(true);
         addKeyListener(this);
@@ -84,6 +77,8 @@ public class SpaceInvadersUI extends JPanel implements ActionListener, KeyListen
     }
 
     public void startNewGame(){
+        gameInstance.setGameOver(false);
+
         gameInstance.scoreCounter.resetScore(); 
         gameInstance.invaderboxes.clear();
         gameInstance.bullets.clear();
@@ -114,6 +109,15 @@ public class SpaceInvadersUI extends JPanel implements ActionListener, KeyListen
     public void resumeGame() {
         timer.start();
         repaint();
+    }
+
+    public void stopTimer() {
+        timer.stop();
+        repaint();
+    }
+
+    public void setGameOver(boolean isOver) {
+        gameOver = isOver;
     }
 
     @Override
@@ -156,18 +160,26 @@ public class SpaceInvadersUI extends JPanel implements ActionListener, KeyListen
         paintingActions.drawShooter(g, this);
 
         // Draw falling invaderboxes (as images)
-        paintingActions.drawInvaders(g, invaderboxes, invaderSelection.getInvaderImage(), this);
+        paintingActions.drawInvaders(g, invaderboxes, InvaderSelection.getInvaderImage(), this);
 
         // Draw bullets (bullets)
-        paintingActions.drawBullets(g, bullets);
+        paintingActions.drawBullets(gameInstance, g, bullets);
 
-        paintingActions.drawExplosions(g, invaderboxes, explosionSelection.getExplosionImage());
+        paintingActions.drawExplosions(g, invaderboxes, ExplosionSelection.getExplosionImage());
+
+        if (gameOver) {
+            g.setFont(new Font("Papyrus", Font.BOLD, 20));
+            g.drawString("Score: " + lastScore, 20, 30);
+            return;
+        }
         
-        if (!timer.isRunning()) {
+        if (!gameOver && !timer.isRunning()) {
             g.setFont(new Font("Papyrus", Font.BOLD, 30));
             g.setColor(Color.YELLOW);
             g.drawString("Game Paused", getWidth() / 2 - 80, getHeight() / 2);
-        } else {
+        } 
+        
+        if (!gameOver && timer.isRunning()) {
             currentScore = scoreCounter.getScore();
             if (currentScore < lastScore) {
                 cooldownCounter = COOLDOWN_DURATION;
@@ -188,7 +200,8 @@ public class SpaceInvadersUI extends JPanel implements ActionListener, KeyListen
             }
 
             lastScore = currentScore;
-        }
+        } 
+    
     }
 
     private void drawGlowingBorder(Graphics g) {

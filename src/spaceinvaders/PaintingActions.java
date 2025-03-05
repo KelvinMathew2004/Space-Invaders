@@ -2,7 +2,9 @@ package spaceinvaders;
 
 import java.awt.*;
 
-import spaceinvaders.menus.BulletSelection;
+import spaceinvaders.content.BulletSelection;
+import spaceinvaders.content.ShooterSelection;
+
 public class PaintingActions {
 
     public PaintingActions() {
@@ -10,7 +12,7 @@ public class PaintingActions {
     }
 
     public void drawShooter(Graphics g, SpaceInvadersUI game) {
-        Image shooter_image = game.shooterSelection.getShooterImage();
+        Image shooter_image = ShooterSelection.getShooterImage();
         int shooter_height = game.getShooterHeight();
         int shooter_width = game.getShooterWidth();
         int shooter_X_Coordinate = game.getShooter_X_Coordinate();
@@ -35,7 +37,7 @@ public class PaintingActions {
         }
     }
 
-    public void drawBullets(Graphics g, java.util.List<SpaceInvadersUI.Bullet> bullets) {
-        BulletSelection.drawBullets(g, bullets);
+    public void drawBullets(SpaceInvadersUI game, Graphics g, java.util.List<SpaceInvadersUI.Bullet> bullets) {
+        BulletSelection.drawBullets(game, g, bullets);
     }
 }
