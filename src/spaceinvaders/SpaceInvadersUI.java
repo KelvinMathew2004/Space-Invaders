@@ -156,11 +156,11 @@ public class SpaceInvadersUI extends JPanel implements ActionListener, KeyListen
             setBackground(Color.BLACK);
         }
 
-        // Draw shooter (rectangle)
-        paintingActions.drawShooter(g, this);
-
         // Draw falling invaderboxes (as images)
         paintingActions.drawInvaders(g, invaderboxes, InvaderSelection.getInvaderImage(), this);
+        
+        // Draw shooter (rectangle)
+        paintingActions.drawShooter(g, this);
 
         // Draw bullets (bullets)
         paintingActions.drawBullets(gameInstance, g, bullets);
@@ -169,7 +169,10 @@ public class SpaceInvadersUI extends JPanel implements ActionListener, KeyListen
 
         if (gameOver) {
             g.setFont(new Font("Papyrus", Font.BOLD, 20));
-            g.drawString("Score: " + lastScore, 20, 30);
+            g.setColor(Color.RED);
+            g.drawString("Score: ", 20, 30);
+            g.setFont(new Font("Papyrus", Font.BOLD, 30));
+            g.drawString("☠", 85, 33);
             return;
         }
         

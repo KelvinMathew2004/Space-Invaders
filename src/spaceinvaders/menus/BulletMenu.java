@@ -1,7 +1,5 @@
 package spaceinvaders.menus;
 
-import javax.swing.JMenu;
-
 import spaceinvaders.SpaceInvadersUI;
 import spaceinvaders.content.BulletSelection;
 
