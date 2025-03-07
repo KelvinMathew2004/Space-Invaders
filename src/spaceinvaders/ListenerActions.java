@@ -2,6 +2,8 @@ package spaceinvaders;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Iterator;
 
 import spaceinvaders.content.BulletSelection;
@@ -35,12 +37,6 @@ public class ListenerActions {
             if (fireCooldown <= 0) {
                 int shooter_width = game.getShooterWidth();
                 int shooter_height = game.getShooterHeight();
-                // if (BulletSelection.getBulletType() == "Bullet")
-                //     musicSelection.playSoundEffect("./resources/Bullet.wav", 0.7f);
-                // else if (BulletSelection.getBulletType() == "Bullet2") 
-                //     musicSelection.playSoundEffect("./resources/Bullet2.wav", 0.7f);
-                // else if (BulletSelection.getBulletType() == "Bullet3")
-                //     musicSelection.playSoundEffect("./resources/Bullet3.wav", 0.6f);
                 musicSelection.playSoundEffect("./resources/" + BulletSelection.getBulletType() + ".wav", 0.7f);
                 game.bullets.add(
                         game.new Bullet(shooter_X_Coordinate + shooter_width / 2, game.getHeight() - shooter_height));
@@ -89,9 +85,8 @@ public class ListenerActions {
         }
 
         // Check for bullet-invaderbox collisions
-        bulletIterator = game.bullets.iterator();
-        while (bulletIterator.hasNext()) {
-            SpaceInvadersUI.Bullet bullet = bulletIterator.next();
+        List<SpaceInvadersUI.Bullet> bulletsToRemove = new ArrayList<>();
+        for (SpaceInvadersUI.Bullet bullet : game.bullets) {
             invaderboxIterator = game.invaderboxes.iterator();
             while (invaderboxIterator.hasNext()) {
                 SpaceInvadersUI.InvaderBox invaderbox = invaderboxIterator.next();
@@ -103,7 +98,7 @@ public class ListenerActions {
                 if (new Rectangle(bullet.x - 5, bullet.y, 10, 10).intersects(
                         new Rectangle(invaderbox.x, invaderbox.y, invaderbox.size, invaderbox.size))) {
                 
-                    bulletIterator.remove();
+                    bulletsToRemove.add(bullet);
                     invaderbox.exploding = true;
                     invaderbox.explosionCounter = 20;
 
@@ -115,6 +110,8 @@ public class ListenerActions {
                 }
             }
         }
+
+        game.bullets.removeAll(bulletsToRemove);
 
         invaderboxIterator = game.invaderboxes.iterator();
         while (invaderboxIterator.hasNext()) {

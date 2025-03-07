@@ -33,7 +33,7 @@ public class SpaceInvadersUI extends JPanel implements ActionListener, KeyListen
     private int currentScore;
     private int lastScore;
     private int cooldownCounter = 0;
-    private static final int COOLDOWN_DURATION = 60;
+    private static final int COOLDOWN_DURATION = 6000;
     public boolean shooting = false;
     public Image explosionImage;
     public static SpaceInvadersUI gameInstance;
