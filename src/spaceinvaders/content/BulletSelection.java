@@ -1,4 +1,4 @@
-package spaceinvaders.menus;
+package spaceinvaders.content;
 
 import java.awt.*;
 import spaceinvaders.SpaceInvadersUI;
@@ -7,25 +7,22 @@ public class BulletSelection extends ImageSelection{
     private static Image bulletImage;
     private static String bulletType;
 
-    public BulletSelection() {
-        super();
-        createMenu("Bullets");
-    }
-
-    public void loadCustomBulletImage() {
+    public static void loadCustomBulletImage(SpaceInvadersUI game) {
         bulletImage = loadCustomImage("bullet", "./resources/Bullet.png");
+        game.repaint();
     }
 
-    public void setPresetBulletImage(String resourceName) {
+    public static void setPresetBulletImage(SpaceInvadersUI game, String resourceName) {
         bulletImage = loadPresetImage("bullet", "./resources/" + resourceName + ".png");
         bulletType = resourceName;
+        game.repaint();
     }
 
     public static String getBulletType() {
         return bulletType;
     }
 
-    public static void drawBullets(Graphics g, java.util.List<SpaceInvadersUI.Bullet> bullets) {        
+    public static void drawBullets(SpaceInvadersUI game, Graphics g, java.util.List<SpaceInvadersUI.Bullet> bullets) {        
         if (bulletImage != null) {
             for (SpaceInvadersUI.Bullet bullet : bullets) {
                 g.drawImage(bulletImage, bullet.getX()-5, bullet.getY()-5, 10, 20, null);
@@ -38,5 +35,6 @@ public class BulletSelection extends ImageSelection{
                 g.fillPolygon(xPoints, yPoints, 3);
             }
         }
+        game.repaint();
     }
 }

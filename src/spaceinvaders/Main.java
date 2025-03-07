@@ -1,81 +1,42 @@
 package spaceinvaders;
 
 import javax.swing.JFrame;
-import javax.swing.JMenu;
 import javax.swing.JMenuBar;
-import javax.swing.JMenuItem;
+import javax.swing.SwingUtilities;
 
-import spaceinvaders.menus.ShooterSelection;
-import spaceinvaders.menus.BulletSelection;
-import spaceinvaders.menus.InvaderSelection;
-import spaceinvaders.menus.MusicSelection;
+import spaceinvaders.menus.BulletMenu;
+import spaceinvaders.menus.InvaderMenu;
+import spaceinvaders.menus.MusicMenu;
+import spaceinvaders.menus.ShooterMenu;
+import spaceinvaders.menus.SettingsMenu;
 
 public class Main {
     public static void main(String[] args) {
-        JFrame frame = new JFrame("Space Invaders with Images");
+        SwingUtilities.invokeLater(() -> {
+            JFrame frame = new JFrame("Space Invaders with Images");
 
-        SpaceInvadersUI game = new SpaceInvadersUI();
+            SpaceInvadersUI game = new SpaceInvadersUI();
 
-        ShooterSelection shooterMenu = new ShooterSelection();
-        InvaderSelection invaderMenu = new InvaderSelection();
-        MusicSelection musicMenu = new MusicSelection();
-        BulletSelection bulletMenu = new BulletSelection();
+            ShooterMenu shooter = new ShooterMenu(game);
+            InvaderMenu invader = new InvaderMenu(game);
+            MusicMenu music = new MusicMenu();
+            BulletMenu bullet = new BulletMenu(game);
+            SettingsMenu settings = new SettingsMenu(game);
 
-        JMenuBar menuBar = new JMenuBar();
+            JMenuBar menuBar = new JMenuBar();
+            menuBar.add(shooter.getMenu());
+            menuBar.add(invader.getMenu());
+            menuBar.add(bullet.getMenu());
+            menuBar.add(music.getMenu());
+            menuBar.add(settings.getMenu());
 
-        shooterMenu.addButton("Custom", e -> shooterMenu.setCustomShooterImage());
-        shooterMenu.addButton("Nebula Striker", e -> shooterMenu.setPresetShooterImage("./resources/ShooterImage2.png"));
-        shooterMenu.addButton("Void Phoenix", e -> shooterMenu.setPresetShooterImage("./resources/ShooterImage3.png"));
-        shooterMenu.addButton("Galactic Reaper", e -> shooterMenu.setPresetShooterImage("./resources/ShooterImage4.png"));
-        shooterMenu.addButton("Solar Viper", e -> shooterMenu.setPresetShooterImage("./resources/ShooterImage5.png"));
-        shooterMenu.addButton("Cosmo Sentinel", e -> shooterMenu.setPresetShooterImage("./resources/ShooterImage6.png"));
-
-        invaderMenu.addButton("Custom", e -> invaderMenu.setCustomInvaderImage());
-        invaderMenu.addButton("UFO", e -> invaderMenu.setPresetInvaderImage("./resources/InvaderImage2.png"));
-        invaderMenu.addButton("Xenovores", e -> invaderMenu.setPresetInvaderImage("./resources/InvaderImage3.png"));
-        invaderMenu.addButton("Nebulons", e -> invaderMenu.setPresetInvaderImage("./resources/InvaderImage4.png"));
-        invaderMenu.addButton("Mechavores", e -> invaderMenu.setPresetInvaderImage("./resources/InvaderImage5.png"));
-        invaderMenu.addButton("Voidspawn", e -> invaderMenu.setPresetInvaderImage("./resources/InvaderImage6.png"));
-        invaderMenu.addButton("Zygar Swarm", e -> invaderMenu.setPresetInvaderImage("./resources/InvaderImage7.png"));
-
-        bulletMenu.addButton("Custom", e -> bulletMenu.loadCustomBulletImage());
-        bulletMenu.addButton("Fireball", e -> bulletMenu.setPresetBulletImage("Bullet"));
-        bulletMenu.addButton("Nuke", e -> bulletMenu.setPresetBulletImage("Bullet2"));
-        bulletMenu.addButton("Laser", e -> bulletMenu.setPresetBulletImage("Bullet3"));
-
-        musicMenu.addButton("Custom", e -> musicMenu.loadCustomMusic("./resources/Music3.wav"));
-        musicMenu.addButton("Space", e -> musicMenu.loadPresetMusic("./resources/Music.wav"));
-        musicMenu.addButton("Fun", e -> musicMenu.loadPresetMusic("./resources/Music2.wav"));
-        musicMenu.addButton("Retro Arcade", e -> musicMenu.loadPresetMusic("./resources/Music3.wav"));
-        musicMenu.addButton("Electronic", e -> musicMenu.loadPresetMusic("./resources/Music4.wav"));
-        musicMenu.addButton("Stop Music", e -> musicMenu.stopMusic());
-
-        JMenu settings = new JMenu("Settings");
-
-        JMenuItem pauseItem = new JMenuItem("Pause");
-        pauseItem.addActionListener(e -> game.pauseGame());
-        settings.add(pauseItem);
-
-        JMenuItem resumeItem = new JMenuItem("Resume");
-        resumeItem.addActionListener(e -> game.resumeGame());
-        settings.add(resumeItem);
-
-        JMenuItem restartItem = new JMenuItem("Restart");
-        restartItem.addActionListener(e -> game.startNewGame());
-        settings.add(restartItem);
-
-        menuBar.add(shooterMenu.menu);
-        menuBar.add(invaderMenu.menu);
-        menuBar.add(bulletMenu.menu);
-        menuBar.add(musicMenu.menu);
-        menuBar.add(settings);
-
-        frame.setJMenuBar(menuBar);
-        frame.add(game);
-        frame.setSize(600, 700);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setLocationRelativeTo(null);
-        frame.setResizable(false);
-        frame.setVisible(true);
+            frame.setJMenuBar(menuBar);
+            frame.add(game);
+            frame.setSize(600, 700);
+            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            frame.setLocationRelativeTo(null);
+            frame.setResizable(false);
+            frame.setVisible(true);
+        });
     }
 }

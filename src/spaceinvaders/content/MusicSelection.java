@@ -1,4 +1,4 @@
-package spaceinvaders.menus;
+package spaceinvaders.content;
 
 import javax.sound.sampled.*;
 import java.io.InputStream;
@@ -7,14 +7,9 @@ import java.net.URL;
 
 import spaceinvaders.GameExceptions;
 
-public class MusicSelection extends MenuBar {
+public class MusicSelection {
     private static Clip clip;
     private static Clip sfx;
-
-    public MusicSelection() {
-        super();
-        createMenu("Music");
-    }
 
     public void loadCustomMusic(String defaultMusicPath) {
         String musicUrl = JOptionPane.showInputDialog(null, "Enter URL for music file (WAV only, or leave blank for default):");
