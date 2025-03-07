@@ -103,11 +103,13 @@ public class SpaceInvadersUI extends JPanel implements ActionListener, KeyListen
 
     public void pauseGame() {
         timer.stop();
+        ListenerActions.clicked = true;
         repaint();
     }
 
     public void resumeGame() {
         timer.start();
+        ListenerActions.clicked = false;
         repaint();
     }
 
